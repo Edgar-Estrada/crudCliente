@@ -1,0 +1,111 @@
+<div class="d-flex justify-content-center mt-2">
+    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#myModal">
+      Add Student
+    </button>
+  
+    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#myModalQualification">
+      Add Qualification
+    </button>
+</div>
+
+<div style="text-align: center;" *ngIf = "!showStudents">
+    No hay estudiantes
+</div>
+
+<div *ngIf = "showStudents">
+    <div class="card m-3" style="width: 18rem;" *ngFor="let item of arrStudents">
+        <div class="card-body">
+            <h5 class="card-title text-center">{{item.name}}</h5>
+            <p class="card-text" *ngIf="item.qualifications.length > 0 ">Calificacion: {{item.qualifications[0].qualification}}</p>
+            <p class="card-text" *ngIf="item.qualifications.length == 0 ">Calificacion: ---</p>
+          </div>
+    </div>
+</div>
+
+<!-- Student Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Add Student</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form (submit)="addStudent()">
+            <div class="mb-3 mt-3">
+              <label for="name" class="form-label">Name:</label>
+              <input type="text" [(ngModel)]="student.name" class="form-control" id="name" placeholder="Enter name" name="name">
+            </div>
+            <div class="mb-3">
+              <label for="age" class="form-label">Age:</label>
+              <input type="number" [(ngModel)]="student.age" class="form-control" id="age" placeholder="Enter age" name="age">
+            </div>
+            <div class="mb-3">
+              <label for="age" class="form-label">Status:</label>
+              <select class="form-select" [(ngModel)]="student.status" name="status">
+                <option>Active</option>
+                <option>Unactive</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  <!-- Qualification Modal -->
+  <div class="modal" id="myModalQualification">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Add Qualification</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form (submit)="addQualification()">
+            <div class="mb-3">
+              <label for="age" class="form-label">Student:</label>
+              <select class="form-select" [(ngModel)]="selectedStudent" name="status">
+                    <option *ngFor="let item of arrStudents" [ngValue]="item.name">
+                        {{item.name}}
+                    </option>
+              </select>
+            </div>
+            <div class="mb-3 mt-3">
+              <label for="qualification" class="form-label">Qualification:</label>
+              <input type="number" class="form-control" [(ngModel)]="qualification.qualification" id="qualification" placeholder="Enter qualification" name="qualification">
+            </div>
+            <div class="mb-3">
+              <label for="age" class="form-label">Status:</label>
+              <select class="form-select" [(ngModel)]="qualification.status" name="status">
+                <option>Approved</option>
+                <option>Failed</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
